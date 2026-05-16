@@ -25,7 +25,7 @@ export default function useGeocoding(query, userLocation) {
         const params = new URLSearchParams({
           access_token: import.meta.env.VITE_MAPBOX_TOKEN,
           country: 'tr',
-          limit: '5',
+          limit: '10',
           language: 'tr',
         })
         if (lng != null && lat != null) {
