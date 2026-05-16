@@ -90,9 +90,9 @@ export default function SearchBar({ userLocation, onSelectDestination, recents =
 
   const handleSelect = (feature) => {
     const [lng, lat] = feature.center
-    setQuery(feature.place_name)
     setFocused(false)
     onSelectDestination({ lng, lat }, feature.place_name)
+    setQuery('')
   }
 
   const handleFocus = () => {
@@ -185,6 +185,7 @@ export default function SearchBar({ userLocation, onSelectDestination, recents =
                     e.preventDefault()
                     setFocused(false)
                     onSelectRecent?.(recent)
+                    setQuery('')
                   }}
                   style={{
                     padding: '10px 14px',
