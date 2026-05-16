@@ -440,20 +440,6 @@ export default function MapView() {
   }, [position])
 
   useEffect(() => {
-    if (!mapRef.current || !destination) return
-    const dest = [destination.coords.lng, destination.coords.lat]
-    if (position) {
-      const bounds = new mapboxgl.LngLatBounds()
-      bounds.extend([position.lng, position.lat])
-      bounds.extend(dest)
-      mapRef.current.fitBounds(bounds, { padding: 100, duration: 800 })
-    } else {
-      mapRef.current.flyTo({ center: dest, zoom: 14 })
-    }
-    hasFlownRef.current = true
-  }, [destination])
-
-  useEffect(() => {
     if (destination && destination.coords) {
       addRecent({
         lng: destination.coords.lng,
