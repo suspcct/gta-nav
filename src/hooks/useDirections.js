@@ -37,7 +37,7 @@ export default function useDirections(origin, destination) {
       alternatives: 'false',
     })
     const coords = `${currentOrigin.lng},${currentOrigin.lat};${destination.lng},${destination.lat}`
-    const url = `https://api.mapbox.com/directions/v5/mapbox/driving/${coords}?${params.toString()}`
+    const url = `https://api.mapbox.com/directions/v5/mapbox/driving-traffic/${coords}?${params.toString()}`
 
     ;(async () => {
       try {
