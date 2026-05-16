@@ -525,7 +525,7 @@ export default function MapView() {
         changeKey={currentArea.key}
       />
       <Speedometer speedMs={userPosition?.speed} />
-      <Compass heading={userPosition?.heading} />
+      {!destination && <Compass heading={userPosition?.heading} />}
       <WantedLevel speedMs={userPosition?.speed} />
     </>
   )

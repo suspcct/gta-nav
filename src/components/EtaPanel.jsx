@@ -1,98 +1,86 @@
-import { WAYPOINT } from '../constants/gtaColors'
+import React from 'react';
 
-function formatDuration(seconds) {
-  const totalMin = Math.max(1, Math.round(seconds / 60))
-  if (totalMin < 60) return `${totalMin} dk`
-  const hours = Math.floor(totalMin / 60)
-  const mins = totalMin % 60
-  return mins === 0 ? `${hours} sa` : `${hours} sa ${mins} dk`
-}
+export default function EtaPanel({ duration, distance, destinationName }) {
+  if (duration == null || distance == null) return null;
 
-function formatDistance(meters) {
-  if (meters < 1000) return `${Math.round(meters)} m`
-  return `${(meters / 1000).toFixed(1)} km`
-}
-
-const panelStyle = {
-  position: 'fixed',
-  top: '76px',
-  right: 16,
-  background: 'rgba(20, 20, 25, 0.85)',
-  backdropFilter: 'blur(12px)',
-  WebkitBackdropFilter: 'blur(12px)',
-  border: `1px solid ${WAYPOINT}66`,
-  borderRadius: 12,
-  padding: '12px 16px',
-  minWidth: 160,
-  maxWidth: 240,
-  zIndex: 20,
-  fontFamily: 'system-ui, sans-serif',
-  boxSizing: 'border-box',
-}
-
-const durationStyle = {
-  fontSize: 18,
-  fontWeight: 600,
-  color: 'rgba(240, 240, 235, 0.95)',
-  lineHeight: 1.2,
-}
-
-const distanceStyle = {
-  fontSize: 13,
-  color: 'rgba(150, 150, 145, 0.8)',
-  marginTop: 2,
-  lineHeight: 1.2,
-}
-
-const nameStyle = {
-  fontSize: 12,
-  color: `${WAYPOINT}CC`,
-  fontStyle: 'italic',
-  marginTop: 8,
-  whiteSpace: 'nowrap',
-  overflow: 'hidden',
-  textOverflow: 'ellipsis',
-}
-
-const statusStyle = {
-  fontSize: 13,
-  color: 'rgba(150, 150, 145, 0.8)',
-  lineHeight: 1.2,
-}
-
-const errorStyle = {
-  ...statusStyle,
-  color: 'rgba(255, 110, 110, 0.85)',
-}
-
-export default function EtaPanel({
-  duration,
-  distance,
-  destinationName,
-  loading,
-  error,
-}) {
-  if (loading) {
-    return (
-      <div style={panelStyle}>
-        <div style={statusStyle}>Rota hesaplanıyor...</div>
-      </div>
-    )
-  }
-  if (error) {
-    return (
-      <div style={panelStyle}>
-        <div style={errorStyle}>Rota bulunamadı</div>
-      </div>
-    )
-  }
-  if (duration == null || distance == null) return null
+  const minutes = Math.round(duration / 60);
+  const km = (distance / 1000).toFixed(1);
 
   return (
-    <div style={panelStyle}>
-      <div style={durationStyle}>{formatDuration(duration)}</div>
-      <div style={distanceStyle}>{formatDistance(distance)}</div>
-      {destinationName && <div style={nameStyle}>{destinationName}</div>}
+    <div
+      style={{
+        position: 'absolute',
+        top: '76px',
+        left: '24px',
+        right: '24px',
+        background: 'rgba(20, 20, 24, 0.85)',
+        backdropFilter: 'blur(16px)',
+        WebkitBackdropFilter: 'blur(16px)',
+        border: '1px solid rgba(164, 76, 242, 0.35)',
+        borderRadius: '14px',
+        padding: '12px 16px',
+        display: 'flex',
+        alignItems: 'center',
+        gap: '14px',
+        zIndex: 5,
+        boxShadow: '0 4px 16px rgba(0, 0, 0, 0.5)',
+        fontFamily: 'Inter, system-ui, sans-serif',
+        pointerEvents: 'none',
+      }}
+    >
+      {/* Sol: Time + Distance */}
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', flexShrink: 0 }}>
+        <span
+          style={{
+            color: '#ffffff',
+            fontSize: '22px',
+            fontWeight: 700,
+            lineHeight: 1,
+            fontVariantNumeric: 'tabular-nums',
+            letterSpacing: '-0.5px',
+          }}
+        >
+          {minutes} dk
+        </span>
+        <span
+          style={{
+            color: 'rgba(255, 255, 255, 0.55)',
+            fontSize: '12px',
+            fontWeight: 500,
+            marginTop: '3px',
+            fontVariantNumeric: 'tabular-nums',
+          }}
+        >
+          {km} km
+        </span>
+      </div>
+
+      {/* Dikey ayırıcı */}
+      <div
+        style={{
+          width: '1px',
+          height: '32px',
+          background: 'rgba(255, 255, 255, 0.15)',
+          flexShrink: 0,
+        }}
+      />
+
+      {/* Sağ: Destination name */}
+      <div
+        style={{
+          flex: 1,
+          minWidth: 0,
+          color: '#a44cf2',
+          fontSize: '14px',
+          fontStyle: 'italic',
+          fontWeight: 500,
+          overflow: 'hidden',
+          textOverflow: 'ellipsis',
+          whiteSpace: 'nowrap',
+        }}
+      >
+        {destinationName}
+      </div>
     </div>
-  )
+  );
 }
