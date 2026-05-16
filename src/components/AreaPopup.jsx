@@ -16,8 +16,8 @@ export default function AreaPopup({ areaName, subName, changeKey }) {
     <div
       style={{
         position: 'absolute',
-        bottom: '40px',
-        left: '32px',
+        bottom: '110px',
+        left: '24px',
         pointerEvents: 'none',
         opacity: visible ? 1 : 0,
         transform: visible ? 'translateX(0)' : 'translateX(-24px)',
