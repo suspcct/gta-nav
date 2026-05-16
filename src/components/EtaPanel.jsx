@@ -15,7 +15,7 @@ function formatDistance(meters) {
 
 const panelStyle = {
   position: 'fixed',
-  top: 16,
+  top: '76px',
   right: 16,
   background: 'rgba(20, 20, 25, 0.85)',
   backdropFilter: 'blur(12px)',

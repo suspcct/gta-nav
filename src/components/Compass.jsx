@@ -33,7 +33,7 @@ export default function Compass({ heading = 0 }) {
     <div
       style={{
         position: 'absolute',
-        top: '76px',
+        top: '130px',
         left: '50%',
         transform: 'translateX(-50%)',
         width: `${STRIP_WIDTH}px`,
